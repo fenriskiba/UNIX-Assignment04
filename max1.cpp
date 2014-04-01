@@ -1,36 +1,48 @@
 #include <iostream>
-#include <cstdlib>
 #include <fstream>
+#include <cstdlib>
 #include <string>
+#include <climits>
 
 using namespace std;
 
-int collectNumbersFromFile(string fileName, int* numberList);
-int findLargestFromList(int* numberList, int listSize);
+int findLargestInFile(string fileName);
 
 int main(int argc, char *argv[])
 {
     string fileName = argv[1];
-    int* numberList;
     
-    int listSize = collectNumbersFromFile(fileName, numberList);
-    int largestNumber = findLargestFromList(numberList, listSize);
+    int largestNumber = findLargestInFile(fileName);
     
     cout << largestNumber;
-    
     return 0;
 }
 
-int collectNumbersFromFile(string fileName, int* numberList);
-
-int findLargestFromList(int* numberList, int listSize)
+int findLargestInFile(string fileName)
 {
-    int smallest = numberList[0];
-    for(int i = 0; i < listSize; i++)
+    int largest = INT_MAX;
+    int current;
+    string line;
+    ifstream myfile(fileName.c_str());
+    
+    if (myfile.is_open())
     {
-        if(smallest > numberList[i];
-            smallest = numberList[i];
+        while(getline(myfile,line))
+        {
+            current = atoi(line.c_str());
+            if(largest == INT_MAX)
+            {
+                largest = current;
+            }
+            else if(largest < current)
+            {
+                largest = current;
+            }
+        }
+        
+        myfile.close();
     }
     
-    return smallest;
+    return largest;
 }
+
